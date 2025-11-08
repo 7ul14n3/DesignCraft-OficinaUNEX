@@ -1,0 +1,370 @@
+/* Importação de Fonte (Simulada, use Link no HTML para o real) */
+/* font-family: 'Poppins', sans-serif; */
+
+/* Variáveis de Cores (Paleta Profissional) */
+:root {
+    --primary-color: #007bff;     /* Azul Claro (Ação/Destaque) */
+    --secondary-color: #343a40;   /* Cinza Escuro (Texto/Header) */
+    --background-color: #f8f9fa;  /* Fundo muito claro */
+    --card-background: #ffffff;
+    --code-background: #282c34;   /* Fundo de código escuro (VS Code like) */
+    --code-text: #abb2bf;
+    --border-radius-lg: 12px;
+    --border-radius-sm: 6px;
+    --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Reset e Tipografia */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header e Navegação */
+header {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 1.2rem 0;
+    margin-bottom: 3rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: color 0.3s;
+    opacity: 0.8;
+}
+
+nav a:hover {
+    color: var(--primary-color);
+    opacity: 1;
+}
+
+/* --- SEÇÕES --- */
+.doc-section {
+    padding: 0 0 4rem 0;
+}
+
+/* Área do Gerador */
+.generator-area {
+    text-align: center;
+    padding: 1rem 0 3rem 0;
+}
+
+.ia-header {
+    margin-bottom: 25px;
+}
+
+.generator-area h2 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    color: var(--secondary-color);
+}
+
+/* WRAPPER de INPUT para sugestões */
+.input-box-wrapper {
+    position: relative; 
+    max-width: 800px;
+    margin: 25px auto 0;
+}
+
+/* Estilo do Campo de Entrada Integrado */
+.input-box {
+    display: flex;
+    align-items: flex-end;
+    border: 2px solid #ced4da;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+    background-color: var(--card-background);
+}
+
+#input-prompt {
+    flex-grow: 1;
+    padding: 18px;
+    border: none;
+    resize: none;
+    font-size: 1rem;
+    min-height: 100px;
+    box-shadow: none;
+    outline: none;
+}
+
+#generate-button {
+    padding: 12px 20px;
+    margin: 0 10px 10px 0;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.1s;
+    align-self: flex-end;
+    height: 40px;
+}
+
+#generate-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+/* Estilos da Caixa de Sugestão de IA */
+.suggestion-box {
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-bottom-left-radius: var(--border-radius-lg);
+    border-bottom-right-radius: var(--border-radius-lg);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none; /* Inicia escondido */
+}
+
+.suggestion-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--secondary-color);
+    transition: background-color 0.2s;
+}
+
+.suggestion-item:hover {
+    background-color: #e9ecef;
+}
+
+/* Estilo do Processamento da IA */
+.status-message {
+    height: 25px;
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+@keyframes dot-flash {
+    0%, 80%, 100% { opacity: 0; }
+    40% { opacity: 1; }
+}
+
+.dot-flashing::after {
+    content: '...';
+    display: inline-block;
+    width: 30px;
+    text-align: left;
+}
+
+.dot-flashing::after span:nth-child(1) { animation: dot-flash 1.5s infinite; }
+.dot-flashing::after span:nth-child(2) { animation: dot-flash 1.5s infinite 0.2s; }
+.dot-flashing::after span:nth-child(3) { animation: dot-flash 1.5s infinite 0.4s; }
+
+/* --- Resultados e Painéis --- */
+hr {
+    border: 0;
+    border-top: 1px solid #e9ecef;
+    margin: 2rem 0;
+}
+
+.results-area h3 {
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.preview-panel, .code-panel {
+    background-color: var(--card-background);
+    padding: 25px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-light);
+}
+
+.preview-panel h4, .code-panel h4 {
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+}
+
+/* Painel de Visualização */
+.preview-box {
+    min-height: 350px;
+    border: 2px dashed #adb5bd;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative; 
+    overflow: hidden;
+    background-color: #f0f0f0; 
+}
+
+.placeholder-text {
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Painel de Código */
+.code-diversity-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+#diversity-select {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: var(--border-radius-sm);
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+
+.code-tabs {
+    display: flex;
+    margin-bottom: 0; 
+}
+
+.tab-button {
+    padding: 10px 18px;
+    border: none;
+    background-color: #e9ecef;
+    color: var(--secondary-color);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    border-top-left-radius: var(--border-radius-sm);
+    border-top-right-radius: var(--border-radius-sm);
+    margin-right: 5px;
+}
+
+.tab-button.active {
+    background-color: var(--code-background);
+    color: white;
+}
+
+#code-output, .code-display {
+    background-color: var(--code-background);
+    color: var(--code-text);
+    padding: 20px;
+    border-bottom-left-radius: var(--border-radius-sm);
+    border-bottom-right-radius: var(--border-radius-sm);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    font-size: 0.9em;
+    min-height: 200px;
+}
+
+/* Botão de Arquivamento */
+#archive-button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    font-weight: 600;
+}
+
+#archive-button:hover {
+    background-color: #495057;
+}
+
+/* --- Estilos da Seção Docs e Responsividade (mantidos) --- */
+.archived-card {
+    background-color: var(--card-background);
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.archived-card h4 {
+    margin-bottom: 5px;
+    color: var(--secondary-color);
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.view-code-btn {
+    padding: 8px 12px;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.view-code-btn:hover {
+    background-color: #dee2e6;
+}
+
+.code-display {
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+@media (max-width: 992px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+    .input-box {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    #generate-button {
+        align-self: stretch;
+        margin: 10px 10px 10px 10px;
+    }
+}

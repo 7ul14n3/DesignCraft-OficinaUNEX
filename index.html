@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesignCraft Studio | Transforme Texto em Componente</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>DesignCraft Studio 🎨</h1>
+            <nav>
+                <a href="#studio">Studio</a>
+                <a href="#docs">Docs</a>
+                <a href="#performance">Performance</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="studio" class="container doc-section">
+        <section class="generator-area">
+            <div class="ia-header">
+                 <h2>🤖 DesignCraft AI Studio</h2>
+                 <p>Descreva o componente que você precisa (ex: Card, Botão, Modal) em linguagem natural.</p>
+            </div>
+           
+            <div class="input-box-wrapper"> 
+                <div class="input-box">
+                    <textarea 
+                        id="input-prompt" 
+                        placeholder='Ex: "Card cinza com sombra e título "Notificação", e um botão vermelho" ou "botão flutuante quadrado verde piscando"'
+                        rows="4"
+                    ></textarea>
+                    <button id="generate-button">Gerar</button> 
+                </div>
+                <div id="suggestion-box" class="suggestion-box"></div> 
+            </div>
+            
+            <div id="processing-status" class="status-message"></div>
+        </section>
+        
+        <hr>
+
+        <section class="results-area">
+            <h3>✨ Resultado da Geração</h3>
+            <div class="results-grid">
+                
+                <div class="preview-panel">
+                    <h4>Visualização (Preview)</h4>
+                    <div id="component-preview" class="preview-box">
+                        <p class="placeholder-text">Componente aparecerá aqui...</p>
+                    </div>
+                </div>
+
+                <div class="code-panel">
+                    <h4>Código Gerado</h4>
+                    
+                    <div class="code-diversity-selector">
+                        <label for="diversity-select">Estilo CSS:</label>
+                        <select id="diversity-select">
+                            <option value="semantic">CSS Puro / Semântico</option>
+                            <option value="utility">CSS Utilitário (Tailwind-like)</option>
+                        </select>
+                    </div>
+
+                    <div class="code-tabs">
+                        <button class="tab-button active" data-lang="html">HTML</button>
+                        <button class="tab-button" data-lang="css">CSS</button>
+                        <button class="tab-button" data-lang="js">JS</button>
+                    </div>
+                    <pre id="code-output"><code class="language-html">// O código será gerado e exibido aqui</code></pre>
+                    <button id="archive-button" class="action-button">Arquivar na Biblioteca Docs 📚</button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+    
+    <section id="docs" class="container doc-section" style="display:none;">
+        <h2>Biblioteca de Componentes Arquivados (Docs) 📚</h2>
+        <p>Aqui ficam as especificações e códigos otimizados gerados e salvos para o seu projeto.</p>
+        <div id="archived-components">
+            <p class="placeholder-text">Nenhum componente arquivado ainda.</p>
+        </div>
+    </section>
+    
+    <section id="performance" class="container doc-section" style="display:none;">
+        <h2>Performance e Otimização ⚡</h2>
+        <p>Garantimos animações fluidas utilizando propriedades de alto desempenho como <code>transform</code> e <code>opacity</code>, evitando o *layout thrashing* e priorizando o *mobile-first*.</p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
